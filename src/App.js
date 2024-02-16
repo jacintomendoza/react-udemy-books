@@ -1,8 +1,18 @@
 import { useState } from "react";
 import BookCreate from "./components/BookCreate";
+import BookList from "./components/BookList";
 
 function App() {
     const [books, setBooks] = useState([]);
+
+    // called by BookShow
+    // App.js <- BookList.js <- BookShow.js
+    const deleteBookById = (id) => {
+        const updatedBooks = books.filter((book) => {
+            return book.id !== id;
+        })
+        setBooks(updatedBooks);
+    };
 
     const createBook = (title) => {
         const updatedBooks = [
@@ -12,9 +22,12 @@ function App() {
         setBooks(updatedBooks);
     };
 
-    return <div>
-        <BookCreate onCreate={createBook} />
-    </div>;
+    return (
+        <div className="app">
+            <BookList books={books} onDelete={deleteBookById}/>
+            <BookCreate onCreate={createBook} />
+        </div>
+    );
 }
 
 export default App;
