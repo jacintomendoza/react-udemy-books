@@ -1,7 +1,9 @@
 import { useState } from "react";
+import useBooksContext from "../hooks/use-hooks-context";
 
-function BookCreate({ onCreate }) { // onCreate from App.js
+function BookCreate() {
     const [title, setTitle] = useState('');
+    const { createBook } = useBooksContext();
 
     const handleChange = (event) => {
         setTitle(event.target.value);  // value from input
@@ -9,7 +11,7 @@ function BookCreate({ onCreate }) { // onCreate from App.js
 
     const handleSubmit = (event) => {
         event.preventDefault(); // prevents browser from automatically submitting form by reloading page
-        onCreate(title);
+        createBook(title);
         setTitle(''); // once user clicks enter, empty the input field
     }
 
